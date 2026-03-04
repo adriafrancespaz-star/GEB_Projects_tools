@@ -15,14 +15,20 @@ To work on this seminar you have to:
 - The Director has to add the Collaborators in the `settings` section
 - Select and open in Visual Studio Code the working local folder (on `Desktop/GEB_Projects`) to clone the Director's github Project repository. 
 - Open a git-bash terminal and clone the Director's github Project repository with the instruction:
-````bash
-git clone https://github.com/director_user_name/GEB_Projects_tools.git
-````
+  ````bash
+  git clone https://github.com/director_user_name/GEB_Projects_tools.git
+  ````
 - In VScode, select `File/Open folder...` and choose the `GEB_Projects_tools` forked repository folder
-
+- First time you will have to add credential information from your github account
+  ````bash
+  git config --global user.email "mail@alumnes.ub.edu" 
+  git config --global user.name "your github username"
+  ````
 Now you are ready to work on Director's local repository project!
 
 - To syncronize the changes in your github
+![sync](././Images/Setup/code_sync.png)
+
 Select “Source control” in left lateral menu bar:
   - Press Add to synchronize all the changes
   - Add a commit comment
