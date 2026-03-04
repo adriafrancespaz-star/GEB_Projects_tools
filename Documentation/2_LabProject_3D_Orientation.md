@@ -11,9 +11,15 @@ We will use an IMU sensor to obtain 3D orientation in a 3D space.
 - Accelerometer sensor: to measure the linear acceleration in X-Y-Z axes
 - Compass sensor: to have a reference to the Geographical World
 - A DMP microcontroller to process data and obtain its proper RPY 3-D orientation 
+
 ![IMU](././Images/3D_Orientation/IMU_Endo.png)
 
 This sensor is mounted on a PCB (Endo-module) with an ESP32 microprocessor to properly read the IMU sensor
+
+**3D orientation**: there are differend methods to define the orientation. One of the most worldwide used is RPY with respect to World coordinate frame (WCF). This method defines:
+- Roll: as a rotation across WCF x axis (corresponds to the Geographical North direction) 
+- Pitch: as a rotation across WCF y axis
+- Yaw: as a rotation across WCF z axis (corresponds to the Geographical Gravity direction)
 
 
 ### Hardware-Software setup
