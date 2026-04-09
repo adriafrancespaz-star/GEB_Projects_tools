@@ -18,11 +18,11 @@ Firstly, we connected the Harware setup. Then, we uploaded the Arduino program (
 #### CORRECTION OF THE ORIENTATION BUG
 Finally, we executed the `Receive_data_RPY_IMU_world.py` python program, which read the data from the endo-module and send it to the 3D-orientation object simulated in the virtual environment. When rotating the endo-module through roll, pitch and yaw movements we realized that the objects were not moving properly. Specifically, the **Yaw** movement around the *Z-axis* was correct but nevertheless the **Pitch** (around *Y-axis*) and **Roll** movements (around the *X-axis*) seemed to be inverted. 
 
-Analyzing the code in the `Receive_data_RPY_IMU_world.py` file we found an error in line **126**. In this line the extrinsic ZYX axes registered from the IMU are defined. In other words, the changes in the 3D orientation measured by the IMU are translated into a rotation matrix that can then be applied to the position vector of the needle, making it rotate accordingly. Orignally, line 126 looks:
+Analyzing the code in the `Receive_data_RPY_IMU_world.py` file we found an error in line **126**. In this line the extrinsic ZYX axes registered from the IMU are defined. In other words, the changes in the 3D orientation measured by the IMU are translated into a rotation matrix that can then be applied to the position vector of the needle, making it rotate accordingly. Originally, line 126 looks:
 
 `R_imu = rotz(y)*roty(p)*rotx(r)`
 
-However, we observe that the two last terms of the multiplication above are incorrect, given that "p" (*pitch*) and "r" (*roll*) are swapped. This is due to the fact that *Pitch, Roll and Yaw* movements are defined as:
+By physiscally rotating the IMU and ESP32 around one axis, we can check if the visual representation is accurate and moves along the same axis too. However, we observe that the x-axis in the simulation is facing the y-axis of the sensor, while the y-axis of the simulation faces the negative part of the sensor's x-axis (they are rotated 90 degrees clockwise, so the airplane faces its right). In the previous formula, the two last terms of the multiplication above are incorrect, given that "p" (*pitch*) and "r" (*roll*) are swapped. This is due to the fact that *Pitch, Roll and Yaw* movements are defined as:
 + **Pitch:** Rotation around the x axis. 
 + **Roll:** Rotation arounf the y axis. 
 + **Yaw:** Rotation around the z axis.
@@ -31,3 +31,4 @@ By rewriting this line 126 as: `R_imu = rotz(y)*roty(r)*rotx(p)`, we correct thi
 
 ### CONCLUSIONS
 ----
+En aquesta sessió hem pogut profunditzar en els nostres coneixements sobre GitHub mitjançant la visualització dels diferents documents dins del repositori i l'ús d'aquests en la plataforma Visual Studio Code. Fent el canvis pertinents, hem aconseguit amb èxit integrar hardware i software per tal d'aconseguir una visualització 3D a l'eina RoboDK diversos objectes. L'IMU aconseguia satisfactoriament traslladar els canvis físics que patia el sensor degut a la nostra manipulació mecànica al programa de visualització, tot i que inicialment els eixos no estiguessin ben alineats. A més, podem observar que, encara que l'agulla es podria considerar un objecte geomètric més simple, a la simulació els moviments es veien molt més bruscos que a l'avió, que feia canvis més gradual. Això és probablement degut a la simetria de l'objecte i la ubicació del centre de massa, però pensem que es podria solucionar amb certes correccions al codi per poder tenir una representació més realista del moviment.
